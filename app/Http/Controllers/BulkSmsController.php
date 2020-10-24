@@ -40,41 +40,49 @@ class BulkSmsController extends Controller
                         } else if (substr($opCode, 0, 3) == +88) {
                             $opCode = ltrim($opCode, '+88');
                             $mobile = $request['number'] = ltrim($mobile, '+88');
+                        }else if(substr($opCode, 0, 1) != 0){
+                            $opCode = '0'.$opCode;
+                            $opCode = substr($opCode, 0, 3);
+                            $mobile = $request['number'] = '0'.$mobile;
+                            
                         }
-
-                        // return $opCode; 
-
+                        else{
+                            $opCode = substr($mobile, 0, 3);
+                        }
+                        
+                        // dd($opCode);
 
                         //Grameenphone
                         if ($opCode == '017' || $opCode == '013') {
 
                             $request->request->add(['operator' => 'Grameenphone']);
-                            return $request;
+                            return $request->except('passkey');
+                            
                         }
 
                         //Airtel
                         else if ($opCode == '016') {
 
                             $request->request->add(['operator' => 'Airtel']);
-                            return $request;
+                            return $request->except('passkey');
                         }
                         //Robi
                         else if ($opCode == '018') {
 
                             $request->request->add(['operator' => 'Robi']);
-                            return $request;
+                            return $request->except('passkey');
                         }
                         //Banglalink
                         else if ($opCode == '019') {
 
                             $request->request->add(['operator' => 'Banglalink']);
-                            return $request;
+                            return $request->except('passkey');
                         }
                         //Uncategorized number
                         else {
 
                             $request->request->add(['operator' => 'Uncategorized']);
-                            return $request;
+                            return $request->except('passkey');
 
                             // for common sms gateway
                             $value = $this->commonSms($mobile, $smsText);
