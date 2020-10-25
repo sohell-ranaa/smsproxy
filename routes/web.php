@@ -17,4 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/bulk','BulkSmsController@index');
-Route::get('/bulk/2','BulkSmsController@httpGet');
+Route::get('/bulk/loadtest','BulkSmsController@loadTest');
+// Route::get('/bulk/asyncload','BulkSmsController@asyncLoad');
+Route::get('/bulk/asyncload','BulkSmsController@asyncLoad');
+Route::get('/bulk/asyncload/test','BulkSmsController@asyncLoadTest');
