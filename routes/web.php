@@ -16,8 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/bulk','BulkSmsController@index');
-Route::get('/bulk/loadtest','BulkSmsController@loadTest');
+Route::get('/bulk', 'BulkSmsController@index');
+Route::get('/bulk-recode', 'BulkSmsController@index_recode');
+Route::get('/bulk/loadtest', 'BulkSmsController@loadTest');
 // Route::get('/bulk/asyncload','BulkSmsController@asyncLoad');
-Route::get('/bulk/asyncload','BulkSmsController@asyncLoad');
-Route::get('/bulk/asyncload/test','BulkSmsController@asyncLoadTest');
+Route::get('/bulk/asyncload', 'BulkSmsController@asyncLoad');
+Route::get('/bulk/asyncload/test', 'BulkSmsController@asyncLoadTest');
+Route::get('/notification', 'BulkSmsController@smsNotification');
