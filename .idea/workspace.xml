@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2d205f21-0679-47de-ab5f-616f999cd565" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BulkSmsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BulkSmsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -139,7 +138,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
@@ -161,6 +160,11 @@
       <workItem from="1604226366823" duration="2000" />
       <workItem from="1604231628838" duration="8528000" />
       <workItem from="1604304205593" duration="2078000" />
+      <workItem from="1604380038197" duration="5451000" />
+      <workItem from="1604405160506" duration="770000" />
+      <workItem from="1604986650112" duration="9255000" />
+      <workItem from="1605068543633" duration="7230000" />
+      <workItem from="1605091106359" duration="6025000" />
     </task>
     <servers />
   </component>
@@ -184,10 +188,10 @@
       <screen x="0" y="40" width="1280" height="680" />
     </state>
     <state width="1237" height="79" key="GridCell.Tab.0.right/0.40.1280.680@0.40.1280.680" timestamp="1604225250942" />
-    <state x="284" y="40" key="SettingsEditor" timestamp="1604225947766">
+    <state x="284" y="40" key="SettingsEditor" timestamp="1604995830820">
       <screen x="0" y="40" width="1280" height="680" />
     </state>
-    <state x="284" y="40" key="SettingsEditor/0.40.1280.680@0.40.1280.680" timestamp="1604225947766" />
+    <state x="284" y="40" key="SettingsEditor/0.40.1280.680@0.40.1280.680" timestamp="1604995830820" />
     <state x="303" y="41" width="672" height="678" key="search.everywhere.popup" timestamp="1604225753158">
       <screen x="0" y="40" width="1280" height="680" />
     </state>
