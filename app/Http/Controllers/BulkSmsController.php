@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\SmsDetails;
+use App\UnsentSmsDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use SoapClient;
@@ -16,6 +17,7 @@ date_default_timezone_set('Asia/Dhaka');
 
 class BulkSmsController extends Controller
 {
+
     public function nodesSms(Request $request)
     {
         //passkey for client identification
@@ -72,7 +74,7 @@ class BulkSmsController extends Controller
                 $opCode = substr($mobile, 0, 3);
             }
 
-            return $this->sendSms($mobile, $smsText);
+            return $this->sendSms($mobile, $smsText, 'Nodes');
 
         } catch (Exception $e) {
             echo $e->getMessage();
@@ -178,12 +180,8 @@ class BulkSmsController extends Controller
                 $opCode = substr($mobile, 0, 3);
             }
 
-            $status = $this->vfSms($mobile, $smsText);
+            return $this->sendSms($mobile, $smsText, 'ekShop-core');
 
-            if ($status == 'Sent.') {
-                $this->storeVfSms($mobile, $smsText, 'ValueFirst', 'ekShop');
-            }
-            return $status;
 
         } catch (Exception $e) {
             echo $e->getMessage();
@@ -191,14 +189,19 @@ class BulkSmsController extends Controller
         return 0;
     }
 
-    public function sendSms($mobile, $sms)
+    public function sendSms($mobile, $sms, $client)
     {
         $status = $this->vfSms($mobile, $sms);
+        $data = explode("&", $status);
 
         if (strpos($status, 'errorcode=0')) {
-            $data = explode("&", $status);
             $guid = ltrim($data[0], 'guid=');
-            $this->storeVfSms($mobile, $sms, $guid, 'ValueFirst', 'Nodes');
+            $this->storeVfSms($mobile, $sms, $guid, 'ValueFirst', $client);
+        }else{
+            $guid = ltrim($data[0], 'guid=');
+            $error_code = ltrim($data[1], 'errorcode=');
+            $this->storeVfUnsentSms($mobile, $sms, $guid, 'ValueFirst', $client, $error_code);
+
         }
         return explode("&", $status);
     }
@@ -218,6 +221,18 @@ class BulkSmsController extends Controller
         $dlr['sms_id'] = $result;
 
         Dlr::create($dlr)->id;
+    }
+
+    public function storeVfUnsentSms($mobile, $sms, $guid, $provider, $client, $error_code)
+    {
+        $data['receiver_number'] = '88' . $mobile;
+        $data['msg_guid'] = $guid;
+        $data['msg_body'] = $sms;
+        $data['msg_client'] = $client;
+        $data['msg_provider'] = $provider;
+        $data['telecom_operator'] = null;
+        $data['error_code'] = $error_code;
+        UnsentSmsDetail::create($data)->id;
     }
 
     public function commonSms($mobile, $sms)

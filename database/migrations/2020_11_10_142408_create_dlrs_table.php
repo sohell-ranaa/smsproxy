@@ -17,6 +17,7 @@ class CreateDlrsTable extends Migration
             $table->id();
             $table->string('to')->nullable();
             $table->unsignedBigInteger('sms_id')->nullable();
+            $table->index('sms_id');
             $table->string('from')->default('eksShop');
             $table->string('delivered_data')->nullable();
             $table->string('msg_status')->nullable();

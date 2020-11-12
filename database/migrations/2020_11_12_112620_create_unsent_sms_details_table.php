@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSmsDetailsTable extends Migration
+class CreateUnsentSmsDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,15 @@ class CreateSmsDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sms_details', function (Blueprint $table) {
+        Schema::create('unsent_sms_details', function (Blueprint $table) {
             $table->id();
             $table->string('receiver_number')->nullable();
             $table->string('msg_guid')->nullable();
-            $table->index('msg_guid');
             $table->string('msg_body')->nullable();
             $table->string('msg_client')->nullable();
             $table->string('msg_provider')->nullable();
             $table->string('telecom_operator')->nullable();
-            $table->integer('is_dlr_received')->default(0);
+            $table->integer('error_code')->nullable();
             $table->timestamps();
         });
     }
@@ -34,6 +33,6 @@ class CreateSmsDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sms_details');
+        Schema::dropIfExists('unsent_sms_details');
     }
 }

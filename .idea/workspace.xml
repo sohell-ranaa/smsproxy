@@ -4,7 +4,8 @@
     <list default="true" id="2d205f21-0679-47de-ab5f-616f999cd565" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BulkSmsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BulkSmsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_10_142408_create_dlrs_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_10_142408_create_dlrs_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_11_102601_create_sms_details_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_11_102601_create_sms_details_table.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +139,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
@@ -164,7 +165,10 @@
       <workItem from="1604405160506" duration="770000" />
       <workItem from="1604986650112" duration="9255000" />
       <workItem from="1605068543633" duration="7230000" />
-      <workItem from="1605091106359" duration="6025000" />
+      <workItem from="1605091106359" duration="7222000" />
+      <workItem from="1605100129037" duration="360000" />
+      <workItem from="1605102796253" duration="306000" />
+      <workItem from="1605155477757" duration="6820000" />
     </task>
     <servers />
   </component>
@@ -188,13 +192,13 @@
       <screen x="0" y="40" width="1280" height="680" />
     </state>
     <state width="1237" height="79" key="GridCell.Tab.0.right/0.40.1280.680@0.40.1280.680" timestamp="1604225250942" />
-    <state x="284" y="40" key="SettingsEditor" timestamp="1604995830820">
+    <state x="284" y="40" key="SettingsEditor" timestamp="1605156797392">
       <screen x="0" y="40" width="1280" height="680" />
     </state>
-    <state x="284" y="40" key="SettingsEditor/0.40.1280.680@0.40.1280.680" timestamp="1604995830820" />
-    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup" timestamp="1604225753158">
+    <state x="284" y="40" key="SettingsEditor/0.40.1280.680@0.40.1280.680" timestamp="1605156797392" />
+    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup" timestamp="1605155488627">
       <screen x="0" y="40" width="1280" height="680" />
     </state>
-    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup/0.40.1280.680@0.40.1280.680" timestamp="1604225753158" />
+    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup/0.40.1280.680@0.40.1280.680" timestamp="1605155488627" />
   </component>
 </project>
