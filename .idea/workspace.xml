@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="2d205f21-0679-47de-ab5f-616f999cd565" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Helpers/General.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Helpers/SmsProviders.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/smsproxy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/smsproxy.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BulkSmsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BulkSmsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/SmsDetails.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/SmsDetails.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/UnsentSmsDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/UnsentSmsDetail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_11_102601_create_sms_details_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_11_102601_create_sms_details_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_12_112620_create_unsent_sms_details_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_12_112620_create_unsent_sms_details_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,13 +191,30 @@
       <workItem from="1605155477757" duration="6820000" />
       <workItem from="1605168642733" duration="3292000" />
       <workItem from="1605238034160" duration="15371000" />
+      <workItem from="1605263047910" duration="292000" />
+      <workItem from="1605287276654" duration="9387000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="WindowStateProjectService">
+    <state x="371" y="136" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1605295511237">
+      <screen x="0" y="40" width="1280" height="680" />
+    </state>
+    <state x="371" y="136" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.40.1280.680@0.40.1280.680" timestamp="1605295511237" />
     <state width="1237" height="79" key="GridCell.Tab.0.bottom" timestamp="1604225250943">
       <screen x="0" y="40" width="1280" height="680" />
     </state>
@@ -198,17 +231,29 @@
       <screen x="0" y="40" width="1280" height="680" />
     </state>
     <state width="1237" height="79" key="GridCell.Tab.0.right/0.40.1280.680@0.40.1280.680" timestamp="1604225250942" />
+    <state x="450" y="88" key="NewPhpClassDialog" timestamp="1605287427971">
+      <screen x="0" y="40" width="1280" height="680" />
+    </state>
+    <state x="450" y="88" key="NewPhpClassDialog/0.40.1280.680@0.40.1280.680" timestamp="1605287427971" />
+    <state x="477" y="300" key="NewPhpFileDialog" timestamp="1605287680105">
+      <screen x="0" y="40" width="1280" height="680" />
+    </state>
+    <state x="477" y="300" key="NewPhpFileDialog/0.40.1280.680@0.40.1280.680" timestamp="1605287680105" />
     <state x="284" y="40" key="SettingsEditor" timestamp="1605156797392">
       <screen x="0" y="40" width="1280" height="680" />
     </state>
     <state x="284" y="40" key="SettingsEditor/0.40.1280.680@0.40.1280.680" timestamp="1605156797392" />
-    <state x="297" y="171" key="run.anything.popup" timestamp="1605251048633">
+    <state x="348" y="68" width="585" height="624" key="find.popup" timestamp="1605295713421">
       <screen x="0" y="40" width="1280" height="680" />
     </state>
-    <state x="297" y="171" key="run.anything.popup/0.40.1280.680@0.40.1280.680" timestamp="1605251048633" />
-    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup" timestamp="1605255045570">
+    <state x="348" y="68" width="585" height="624" key="find.popup/0.40.1280.680@0.40.1280.680" timestamp="1605295713421" />
+    <state x="297" y="171" key="run.anything.popup" timestamp="1605292007113">
       <screen x="0" y="40" width="1280" height="680" />
     </state>
-    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup/0.40.1280.680@0.40.1280.680" timestamp="1605255045570" />
+    <state x="297" y="171" key="run.anything.popup/0.40.1280.680@0.40.1280.680" timestamp="1605292007113" />
+    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup" timestamp="1605295698805">
+      <screen x="0" y="40" width="1280" height="680" />
+    </state>
+    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup/0.40.1280.680@0.40.1280.680" timestamp="1605295698805" />
   </component>
 </project>
