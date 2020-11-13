@@ -17,6 +17,7 @@ class CreateUnsentSmsDetailsTable extends Migration
             $table->id();
             $table->string('receiver_number')->nullable();
             $table->string('msg_guid')->nullable();
+            $table->string('tMsgId')->nullable();
             $table->string('msg_body')->nullable();
             $table->string('msg_client')->nullable();
             $table->string('msg_provider')->nullable();

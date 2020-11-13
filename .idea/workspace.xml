@@ -4,8 +4,12 @@
     <list default="true" id="2d205f21-0679-47de-ab5f-616f999cd565" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BulkSmsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BulkSmsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_10_142408_create_dlrs_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_10_142408_create_dlrs_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/SmsDetails.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/SmsDetails.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/UnsentSmsDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/UnsentSmsDetail.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_11_102601_create_sms_details_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_11_102601_create_sms_details_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_12_112620_create_unsent_sms_details_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_12_112620_create_unsent_sms_details_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,6 +173,8 @@
       <workItem from="1605100129037" duration="360000" />
       <workItem from="1605102796253" duration="306000" />
       <workItem from="1605155477757" duration="6820000" />
+      <workItem from="1605168642733" duration="3292000" />
+      <workItem from="1605238034160" duration="15371000" />
     </task>
     <servers />
   </component>
@@ -196,9 +202,13 @@
       <screen x="0" y="40" width="1280" height="680" />
     </state>
     <state x="284" y="40" key="SettingsEditor/0.40.1280.680@0.40.1280.680" timestamp="1605156797392" />
-    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup" timestamp="1605155488627">
+    <state x="297" y="171" key="run.anything.popup" timestamp="1605251048633">
       <screen x="0" y="40" width="1280" height="680" />
     </state>
-    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup/0.40.1280.680@0.40.1280.680" timestamp="1605155488627" />
+    <state x="297" y="171" key="run.anything.popup/0.40.1280.680@0.40.1280.680" timestamp="1605251048633" />
+    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup" timestamp="1605255045570">
+      <screen x="0" y="40" width="1280" height="680" />
+    </state>
+    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup/0.40.1280.680@0.40.1280.680" timestamp="1605255045570" />
   </component>
 </project>

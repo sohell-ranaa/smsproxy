@@ -13,6 +13,7 @@ class SmsDetails extends Model
         'msg_client',
         'msg_provider',
         'telecom_operator',
-        'is_dlr_received'
+        'is_dlr_received',
+        'tMsgId'
     ];
 }

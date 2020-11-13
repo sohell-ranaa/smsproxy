@@ -22,9 +22,9 @@ Route::get('/ip',function(){
 });
 
 Route::get('/bulk', 'BulkSmsController@nodesSms');
-Route::get('/bulk/dlr', 'BulkSmsController@dlrReport');
+//Route::get('/bulk/dlr', 'BulkSmsController@dlrReport');
 Route::get('/bulk/dlr/report/{number?}', 'BulkSmsController@dlrReportAll');
-Route::get('/bulk/client', 'BulkSmsController@dlrReportFromClient');
+//Route::get('/bulk/client', 'BulkSmsController@dlrReportFromClient');
 Route::get('/ekshop', 'BulkSmsController@ekShopSms');
 //Route::get('/bulk/loadtest', 'BulkSmsController@loadTest');
 //// Route::get('/bulk/asyncload','BulkSmsController@asyncLoad');

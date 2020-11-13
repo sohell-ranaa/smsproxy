@@ -13,6 +13,7 @@ class UnsentSmsDetail extends Model
         'msg_client',
         'msg_provider',
         'telecom_operator',
-        'error_code'
+        'error_code',
+        'tMsgId'
     ];
 }

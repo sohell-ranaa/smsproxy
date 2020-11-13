@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::post('/bulk', 'BulkSmsController@nodesSmsRefactored');
+Route::get('/bulk/dlr', 'BulkSmsController@dlrReport');
+Route::post('/bulk/dlr/client', 'BulkSmsController@dlrReportFromClient');
