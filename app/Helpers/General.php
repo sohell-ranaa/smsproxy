@@ -114,4 +114,11 @@ class General
         ];
 
     }
+
+    public static function getClient(){
+        return [
+          'nodes' => 'nodes',
+          'ekshop'=> 'ekshop'
+        ];
+    }
 }

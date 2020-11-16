@@ -4,6 +4,8 @@ namespace App\Helpers;
 
 use GuzzleHttp\Client;
 
+date_default_timezone_set('Asia/Dhaka');
+
 class SmsProviders
 {
 

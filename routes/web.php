@@ -13,15 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('/ip',function(){
-    echo $_SERVER['SERVER_ADDR'];
+    echo $_SERVER['SERVER_ADDR'].'<br>';
+    echo $_SERVER['REMOTE_ADDR'];
 });
 
-Route::get('/bulk', 'BulkSmsController@nodesSms');
+Route::get('/bulk', function (){
+    return 'Please use new url given';
+});
 Route::get('/bulk/dlr', 'BulkSmsController@dlrReport');
 Route::get('/bulk/dlr/report/{number?}', 'BulkSmsController@dlrReportAll');
 //Route::get('/bulk/client', 'BulkSmsController@dlrReportFromClient');

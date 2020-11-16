@@ -47,7 +47,7 @@ class BulkSmsController extends Controller
             $data = [
                 'mobile' => $mobile,
                 'smsText' => $smsText,
-                'client' => 'Nodes',
+                'client' => General::getClient()['nodes'],
                 'tMsgId' => $tMsgId
             ];
 
@@ -78,7 +78,7 @@ class BulkSmsController extends Controller
             $dataArr = [
                 'mobile' => $mobile,
                 'smsText' => $smsText,
-                'client' => 'elShop-core',
+                'client' => General::getClient()['ekshop'],
             ];
 
             return $this->sendSms($dataArr);
