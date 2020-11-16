@@ -20,12 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2d205f21-0679-47de-ab5f-616f999cd565" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Helpers/General.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Helpers/SmsProviders.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/smsproxy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/smsproxy.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Helpers/General.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helpers/General.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BulkSmsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BulkSmsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,6 +191,8 @@
       <workItem from="1605238034160" duration="15371000" />
       <workItem from="1605263047910" duration="292000" />
       <workItem from="1605287276654" duration="9387000" />
+      <workItem from="1605416134987" duration="1549000" />
+      <workItem from="1605505735476" duration="5634000" />
     </task>
     <servers />
   </component>
@@ -209,6 +209,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="371" y="136" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1605295511237">
@@ -251,9 +252,9 @@
       <screen x="0" y="40" width="1280" height="680" />
     </state>
     <state x="297" y="171" key="run.anything.popup/0.40.1280.680@0.40.1280.680" timestamp="1605292007113" />
-    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup" timestamp="1605295698805">
+    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup" timestamp="1605505798978">
       <screen x="0" y="40" width="1280" height="680" />
     </state>
-    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup/0.40.1280.680@0.40.1280.680" timestamp="1605295698805" />
+    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup/0.40.1280.680@0.40.1280.680" timestamp="1605505798978" />
   </component>
 </project>

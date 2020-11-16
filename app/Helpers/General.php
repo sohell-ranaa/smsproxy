@@ -5,6 +5,7 @@ namespace App\Helpers;
 use App\SmsDetails;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Carbon\Carbon;
 
 class General
 {
@@ -79,9 +80,9 @@ class General
         if (is_null($data)) {
             return 'No data found';
         }
-        if ($data->is_dlr_received != 0) {
-            return 'Already updated';
-        }
+        // if ($data->is_dlr_received != 0) {
+        //     return 'Already updated';
+        // }
         return $data;
     }
 
@@ -89,24 +90,27 @@ class General
     {
 
         $url = 'http://161.117.59.25:6666/receive_report/BD_Nodes';
-//        $url = 'http://smsproxy.test/api/bulk/dlr/client';
+        // $url = 'http://smsproxy.test/api/bulk/dlr/client';
+        // $url = 'http://smsc.ekshop.world/api/bulk/dlr/client';
+
+
         $client = new Client();
         $options = [
-            'json' => [
+            'form_params' => [
                 'tMsgId' => $data['tMsgId'],
                 'status' => $data['status'],
-                'delivered_time' => $data['delivered_time']
+                'delivered_time' => Carbon::parse($data['delivered_time'])->format('m-d-Y H:i:s')
             ]
         ];
 
         try {
             $response = $client->post($url, $options);
         } catch (GuzzleException $e) {
-            return $e->getCode();
+            return $e->getMessage();
         }
         return  [
             'status_code' => $response->getStatusCode(),
-            'body' => (string)$response->getBody()
+            'body' => (string) $response->getBody()
         ];
 
     }

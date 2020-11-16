@@ -22,7 +22,7 @@ Route::get('/ip',function(){
 });
 
 Route::get('/bulk', 'BulkSmsController@nodesSms');
-//Route::get('/bulk/dlr', 'BulkSmsController@dlrReport');
+Route::get('/bulk/dlr', 'BulkSmsController@dlrReport');
 Route::get('/bulk/dlr/report/{number?}', 'BulkSmsController@dlrReportAll');
 //Route::get('/bulk/client', 'BulkSmsController@dlrReportFromClient');
 Route::get('/ekshop', 'BulkSmsController@ekShopSms');

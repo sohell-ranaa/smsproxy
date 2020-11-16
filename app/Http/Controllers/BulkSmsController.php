@@ -120,14 +120,12 @@ class BulkSmsController extends Controller
             'delivered_time' => $DELIVERED_DATA
         ];
 
-        General::sendDlrToBeelink($passData);
-        return 'DLR saved';
-
+        return General::sendDlrToBeelink($passData);
     }
 
     public function dlrReportFromClient(Request $request)
     {
-        return ($request);
+        return $request->all();
     }
 
     public function dlrReportAll($number = null)
