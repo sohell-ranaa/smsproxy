@@ -20,12 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2d205f21-0679-47de-ab5f-616f999cd565" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/emails/BeelinkReportMail.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Helpers/General.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helpers/General.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Helpers/SmsProviders.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helpers/SmsProviders.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BulkSmsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BulkSmsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smsproxy.zip" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,6 +194,7 @@
       <workItem from="1605416134987" duration="1549000" />
       <workItem from="1605505735476" duration="10936000" />
       <workItem from="1605528378162" duration="1334000" />
+      <workItem from="1605530827688" duration="4894000" />
     </task>
     <servers />
   </component>
@@ -215,9 +214,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="371" y="136" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1605295511237">
+    <state x="371" y="136" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1605532922760">
       <screen x="0" y="40" width="1280" height="680" />
     </state>
+    <state x="371" y="136" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.40.1280.680/1920.-115.1600.860@0.40.1280.680" timestamp="1605532922760" />
     <state x="371" y="136" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.40.1280.680@0.40.1280.680" timestamp="1605295511237" />
     <state width="1237" height="79" key="GridCell.Tab.0.bottom" timestamp="1604225250943">
       <screen x="0" y="40" width="1280" height="680" />
@@ -239,9 +239,10 @@
       <screen x="0" y="40" width="1280" height="680" />
     </state>
     <state x="450" y="88" key="NewPhpClassDialog/0.40.1280.680@0.40.1280.680" timestamp="1605287427971" />
-    <state x="477" y="300" key="NewPhpFileDialog" timestamp="1605287680105">
+    <state x="465" y="395" key="NewPhpFileDialog" timestamp="1605531412710">
       <screen x="0" y="40" width="1280" height="680" />
     </state>
+    <state x="465" y="395" key="NewPhpFileDialog/0.40.1280.680/1920.-115.1600.860@0.40.1280.680" timestamp="1605531412710" />
     <state x="477" y="300" key="NewPhpFileDialog/0.40.1280.680@0.40.1280.680" timestamp="1605287680105" />
     <state x="284" y="40" key="SettingsEditor" timestamp="1605156797392">
       <screen x="0" y="40" width="1280" height="680" />
@@ -255,9 +256,10 @@
       <screen x="0" y="40" width="1280" height="680" />
     </state>
     <state x="297" y="171" key="run.anything.popup/0.40.1280.680@0.40.1280.680" timestamp="1605292007113" />
-    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup" timestamp="1605512671691">
+    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup" timestamp="1605532171967">
       <screen x="0" y="40" width="1280" height="680" />
     </state>
+    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup/0.40.1280.680/1920.-115.1600.860@0.40.1280.680" timestamp="1605532171967" />
     <state x="303" y="41" width="672" height="678" key="search.everywhere.popup/0.40.1280.680@0.40.1280.680" timestamp="1605512671691" />
   </component>
 </project>

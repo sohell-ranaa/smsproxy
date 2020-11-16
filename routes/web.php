@@ -1,6 +1,8 @@
 <?php
 
+use App\SmsDetails;
 use Illuminate\Support\Facades\Route;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +27,4 @@ Route::get('/bulk/dlr', 'BulkSmsController@dlrReport');
 Route::get('/bulk/dlr/report/{number?}', 'BulkSmsController@dlrReportAll');
 //Route::get('/bulk/client', 'BulkSmsController@dlrReportFromClient');
 Route::get('/ekshop', 'BulkSmsController@ekShopSms');
-//Route::get('/bulk/loadtest', 'BulkSmsController@loadTest');
-//// Route::get('/bulk/asyncload','BulkSmsController@asyncLoad');
-//Route::get('/bulk/asyncload', 'BulkSmsController@asyncLoad');
-//Route::get('/bulk/asyncload/test', 'BulkSmsController@asyncLoadTest');
-//Route::get('/notification', 'BulkSmsController@smsNotification');
+Route::get('/beelink-report-email','MailController@sendBeelinkMail');

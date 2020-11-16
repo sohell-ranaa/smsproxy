@@ -2,10 +2,12 @@
 
 namespace App\Helpers;
 
+use App\Dlr;
 use App\SmsDetails;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Carbon\Carbon;
+use DB;
 
 class General
 {
@@ -120,5 +122,18 @@ class General
           'nodes' => 'nodes',
           'ekshop'=> 'ekshop'
         ];
+    }
+
+    public static function beelinkReport(){
+
+        $data['successful'] = SmsDetails::where('msg_client','nodes')
+            ->where('is_dlr_received',1)
+            ->whereDate('created_at', Carbon::today())
+            ->count();
+
+        $data['total'] = SmsDetails::where('msg_client','nodes')
+            ->whereDate('created_at', Carbon::today())
+            ->count();
+        return $data;
     }
 }
