@@ -25,6 +25,7 @@ Route::get('/bulk', function (){
 });
 Route::get('/bulk/dlr', 'BulkSmsController@dlrReport');
 Route::get('/bulk/dlr/report/{number?}', 'BulkSmsController@dlrReportAll');
-//Route::get('/bulk/client', 'BulkSmsController@dlrReportFromClient');
+Route::get('/bulk/client', 'BulkSmsController@dlrReportFromClient');
 Route::get('/ekshop', 'BulkSmsController@ekShopSms');
 Route::get('/beelink-report-email','MailController@sendBeelinkMail');
+Route::get('/test/teletalk','BulkSmsController@getTeletalkDlr');

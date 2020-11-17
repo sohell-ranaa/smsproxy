@@ -62,6 +62,26 @@ class General
 
     public static function setVfCreateValues($var)
     {
+        $opCode = substr($var['mobile'], 0, 3);
+        if ($opCode == '015') {
+            $operator = 'Teletalk';
+        }
+        if ($opCode == '016') {
+            $operator = 'Airtel';
+        }
+        if ($opCode == '013' || $opCode == '017') {
+            $operator = 'Grameenphone';
+        }
+        if ($opCode == '018') {
+            $operator = 'Robi';
+        }
+        if ($opCode == '016') {
+            $operator = 'Airtel';
+        }
+        if ($opCode == '014' || $opCode == '019') {
+            $operator = 'Banglalink';
+        }
+
         $data['receiver_number'] = '88' . $var['mobile'];
         $data['msg_guid'] = $var['guid'];
         $data['msg_body'] = $var['smsText'];
@@ -70,6 +90,7 @@ class General
         $data['telecom_operator'] = null;
         $data['error_code'] = (isset($var['error_code']) ? $var['error_code'] : NULL);
         $data['tMsgId'] = (isset($var['tMsgId']) ? $var['tMsgId'] : NULL);
+        $data['telecom_operator'] = $operator;
         return $data;
 
     }
@@ -92,7 +113,7 @@ class General
     {
 
         $url = 'http://161.117.59.25:6666/receive_report/BD_Nodes';
-        // $url = 'http://smsproxy.test/api/bulk/dlr/client';
+//         $url = 'http://smsproxy.test/api/bulk/dlr/client';
         // $url = 'http://smsc.ekshop.world/api/bulk/dlr/client';
 
 
@@ -100,8 +121,7 @@ class General
         $options = [
             'form_params' => [
                 'tMsgId' => $data['tMsgId'],
-                'status' => $data['status'],
-                'delivered_time' => Carbon::parse($data['delivered_time'])->format('m-d-Y H:i:s')
+                'status' => $data['status']
             ]
         ];
 
@@ -110,30 +130,46 @@ class General
         } catch (GuzzleException $e) {
             return $e->getMessage();
         }
-        return  [
-            'status_code' => $response->getStatusCode(),
-            'body' => (string) $response->getBody()
-        ];
-
-    }
-
-    public static function getClient(){
         return [
-          'nodes' => 'nodes',
-          'ekshop'=> 'ekshop'
+            'status_code' => $response->getStatusCode(),
+            'body' => (string)$response->getBody()
+        ];
+
+    }
+
+    public static function getClient()
+    {
+        return [
+            'nodes' => 'nodes',
+            'ekshop' => 'ekshop'
         ];
     }
 
-    public static function beelinkReport(){
+    public static function beelinkReport()
+    {
 
-        $data['successful'] = SmsDetails::where('msg_client','nodes')
-            ->where('is_dlr_received',1)
+        $data['successful'] = SmsDetails::where('msg_client', 'nodes')
+            ->where('is_dlr_received', 1)
             ->whereDate('created_at', Carbon::today())
             ->count();
 
-        $data['total'] = SmsDetails::where('msg_client','nodes')
+        $data['total'] = SmsDetails::where('msg_client', 'nodes')
             ->whereDate('created_at', Carbon::today())
             ->count();
         return $data;
+    }
+
+    public static function mobileValidaton($mobile)
+    {
+        if (strlen((string)$mobile) != 11) {
+            return 'Invalid number length';
+        }
+        $OpArr = ['013', '014', '015', '016', '017', '018', '019'];
+        $op = substr($mobile, 0, 3);
+
+        if (!in_array($op, $OpArr)) {
+            return 'Invalid number';
+        }
+        return null;
     }
 }

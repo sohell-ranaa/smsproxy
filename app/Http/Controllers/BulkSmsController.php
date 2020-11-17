@@ -7,6 +7,7 @@ use App\Helpers\SmsProviders;
 use App\SmsDetails;
 use App\UnsentSmsDetail;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use mysql_xdevapi\Exception;
 use Async;
@@ -40,8 +41,10 @@ class BulkSmsController extends Controller
             //  $smsText = 'কোড '.$smsText . ' - একশপ';
 
             $mobile = General::formatMobileNumber($mobile);
-            if (strlen((string)$mobile) != 11) {
-                return 'Invalid number length';
+            $checkError = General::mobileValidaton($mobile);
+
+            if (!is_null($checkError)) {
+                return $checkError;
             }
 
             $data = [
@@ -71,8 +74,10 @@ class BulkSmsController extends Controller
             $smsText = $request->smsText;
 
             $mobile = General::formatMobileNumber($mobile);
-            if (strlen((string)$mobile) != 11) {
-                return 'Invalid number length';
+            $checkError = General::mobileValidaton($mobile);
+
+            if (!is_null($checkError)) {
+                return $checkError;
             }
 
             $dataArr = [
@@ -92,13 +97,12 @@ class BulkSmsController extends Controller
     //    Used in routes
     public function dlrReport(Request $request)
     {
-
         $DELIVERED_DATA = Carbon::parse($request->DELIVERED_DATA)->addMinutes(30);
         $MSG_STATUS = $request->MSG_STATUS;
         $CLIENT_GUID = $request->CLIENT_GUID;
 
         $data = General::dlrValidation($CLIENT_GUID);
-        if(!is_object($data)){
+        if (!is_object($data)) {
             return $data;
         }
 
@@ -125,7 +129,7 @@ class BulkSmsController extends Controller
 
     public function dlrReportFromClient(Request $request)
     {
-        return $request->all();
+        return $request;
     }
 
     public function dlrReportAll($number = null)
@@ -140,32 +144,65 @@ class BulkSmsController extends Controller
 
     public function sendSms($dataArr)
     {
-        $status = SmsProviders::vfSms($dataArr);
-        $data = explode("&", $status);
 
-        if (strpos($status, 'errorcode=0')) {
-            $guid = ltrim($data[0], 'guid=');
-            $t_arr = [
-                'guid' => $guid,
-                'provider' => 'ValueFirst'
-            ];
-            $var = array_merge($dataArr, $t_arr);
-            return $this->storeVfSms($var);
+        $opCode = substr($dataArr['mobile'], 0, 3);
+
+        if ($opCode == '015') {
+            $provider = 'Teletalk';
+            $status = SmsProviders::teletalkSms($dataArr);
+            $data = explode(",", $status);
+
+            if ($data[0] == 'SUCCESS') {
+                $guid = ltrim($data[1], 'ID=');
+                $t_arr = [
+                    'guid' => $guid,
+                    'provider' => $provider,
+                    'telecom_operator' => $provider
+                ];
+
+                $var = array_merge($dataArr, $t_arr);
+                return $this->storeSuccessSms($var);
+
+            } else {
+                $guid = ltrim($data[1], 'ID=');
+                $error_code = 99;
+
+                $t_arr = [
+                    'guid' => $guid,
+                    'provider' => $provider,
+                    'error_code' => $error_code
+                ];
+                $var = array_merge($dataArr, $t_arr);
+                return $this->storeUnsentSms($var);
+            }
         } else {
-            $guid = ltrim($data[0], 'guid=');
-            $error_code = ltrim($data[1], 'errorcode=');
+            $status = SmsProviders::vfSms($dataArr);
+            $data = explode("&", $status);
 
-            $t_arr = [
-                'guid' => $guid,
-                'provider' => 'ValueFirst',
-                'error_code' => $error_code
-            ];
-            $var = array_merge($dataArr, $t_arr);
-            return $this->storeVfUnsentSms($var);
+            if (strpos($status, 'errorcode=0')) {
+                $guid = ltrim($data[0], 'guid=');
+                $t_arr = [
+                    'guid' => $guid,
+                    'provider' => 'ValueFirst'
+                ];
+                $var = array_merge($dataArr, $t_arr);
+                return $this->storeSuccessSms($var);
+            } else {
+                $guid = ltrim($data[0], 'guid=');
+                $error_code = ltrim($data[1], 'errorcode=');
+
+                $t_arr = [
+                    'guid' => $guid,
+                    'provider' => 'ValueFirst',
+                    'error_code' => $error_code
+                ];
+                $var = array_merge($dataArr, $t_arr);
+                return $this->storeUnsentSms($var);
+            }
         }
     }
 
-    public function storeVfSms($var)
+    public function storeSuccessSms($var)
     {
         $data = General::setVfCreateValues($var);
         $result = SmsDetails::create($data)->id;
@@ -179,12 +216,12 @@ class BulkSmsController extends Controller
             'data' => [
                 'guid' => $data['msg_guid']
             ],
-            'tMsgId' => $data['tMsgId']
+            'tMsgId' => $data['tMsgId'],
         ];
         return $storeStatus;
     }
 
-    public function storeVfUnsentSms($var)
+    public function storeUnsentSms($var)
     {
         $data = General::setVfCreateValues($var);
         UnsentSmsDetail::create($data)->id;
@@ -202,4 +239,62 @@ class BulkSmsController extends Controller
 
     }
 
+    public function sendTeletalk(Request $request)
+    {
+        return SmsProviders::teletalkSms($request);
+    }
+
+    public function getTeletalkDlr()
+    {
+        $checkforDlr = SmsDetails::where('msg_provider', 'Teletalk')
+            ->where('is_dlr_received', 0);
+
+        if ($checkforDlr->count() > 0) {
+
+            $msg_guid = $checkforDlr->select('id', 'msg_guid', 'tMsgId')->get();
+
+            foreach ($msg_guid as $data) {
+                $url = 'https://bulksms.teletalk.com.bd/link_sms_send.php?op=STATUS&user=Aspire&pass=ekShop@2021&sms_id=' . $data->msg_guid;
+                $client = new Client([
+                    'Content-Type' => 'application/json',
+                    'Host' => 'ekshop.gov.bd',
+                    'Accept-Charset' => 'utf-8',
+                    'Last-Modified' => date(' Y-m-d H:i:s')
+                ]);
+                $promise1 = $client->getAsync($url)->then(
+                    function ($response) {
+                        return $response->getBody();
+                    }, function ($exception) {
+                    return $exception->getMessage();
+                }
+                );
+
+                $response = $promise1->wait();
+
+                if (strpos($response, 'SUCCESSFULLY SENT TO')) {
+                    $deliveryStatus = 'Delivered';
+                } else {
+                    $deliveryStatus = 'Failed';
+                }
+                Dlr::where('sms_id', $data->id)
+                    ->update([
+                        'msg_status' => $deliveryStatus
+                    ]);
+
+                SmsDetails::where('id', $data->id)
+                    ->update([
+                        'is_dlr_received' => '1',
+                        'msg_guid' => $data->msg_guid
+                    ]);
+
+                $passData = [
+                    'tMsgId' => $data['tMsgId'],
+                    'status' => $deliveryStatus
+                ];
+
+                return General::sendDlrToBeelink($passData);
+
+            }
+        }
+    }
 }
