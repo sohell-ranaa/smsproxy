@@ -54,10 +54,10 @@ class SmsProviders
 
     public static function teletalkSms($data){
 
-        return 'SUCCESS,ID=A1605591317372508319SGQG,PREVIOUS CREDIT=99,CURRENT CREDIT=98.00,DEDUCTED CREDIT=1,TOTAL CHAR=23,SERVER=bulksms.teletalk.com.bd,SMS CLASS=GENERAL';
+        return 'SUCCESS,ID=A1605696431749708336EDQY,PREVIOUS CREDIT OF MASTER=91,CURRENT CREDIT OF MASTER=90.00,DEDUCTED CREDIT=1,TOTAL CHAR=23,CURRENT CREDIT=0.00,SERVER=bulksms.teletalk.com.bd,SMS CLASS=GENERAL';
 
-        $url = 'https://bulksms.teletalk.com.bd/link_sms_send.php?op=SMS&user=Aspire&pass=ekShop@2021&mobile=88' . $data['mobile'] . '&charset=UTF-8&sms='. $data['smsText'];
-//        return $url;
+        $url = 'https://bulksms.teletalk.com.bd/link_sms_send.php?op=SMS&user=ekshop&pass=ekShop@2021&mobile=88'. $data['mobile'] .'&charset=UTF-8&sms='. $data['smsText'];
+
         $client = new Client([
             'Content-Type' => 'application/json',
             'Host' => 'ekshop.gov.bd',

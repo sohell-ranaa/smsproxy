@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Carbon\Carbon;
 use DB;
+use phpDocumentor\Reflection\Types\This;
 
 class General
 {
@@ -62,26 +63,7 @@ class General
 
     public static function setVfCreateValues($var)
     {
-        $operator = '';
-        $opCode = substr($var['mobile'], 0, 3);
-        if ($opCode == '015') {
-            $operator = 'Teletalk';
-        }
-        if ($opCode == '016') {
-            $operator = 'Airtel';
-        }
-        if ($opCode == '013' || $opCode == '017') {
-            $operator = 'Grameenphone';
-        }
-        if ($opCode == '018') {
-            $operator = 'Robi';
-        }
-        if ($opCode == '016') {
-            $operator = 'Airtel';
-        }
-        if ($opCode == '014' || $opCode == '019') {
-            $operator = 'Banglalink';
-        }
+        $operator = General::setOperatorName($var);
 
         $data['receiver_number'] = '88' . $var['mobile'];
         $data['msg_guid'] = $var['guid'];
@@ -91,7 +73,30 @@ class General
         $data['error_code'] = (isset($var['error_code']) ? $var['error_code'] : NULL);
         $data['tMsgId'] = (isset($var['tMsgId']) ? $var['tMsgId'] : NULL);
         $data['telecom_operator'] = $operator;
+
         return $data;
+
+    }
+
+    public static function setOperatorName($var)
+    {
+
+        $operator = '';
+        $opCode = substr($var['mobile'], 0, 3);
+        if ($opCode == '015') {
+            $operator = 'Teletalk';
+        } elseif ($opCode == '016') {
+            $operator = 'Airtel';
+        } elseif ($opCode == '013' || $opCode == '017') {
+            $operator = 'Grameenphone';
+        } elseif ($opCode == '018') {
+            $operator = 'Robi';
+        } elseif ($opCode == '016') {
+            $operator = 'Airtel';
+        } elseif ($opCode == '014' || $opCode == '019') {
+            $operator = 'Banglalink';
+        }
+        return $operator;
 
     }
 
@@ -103,9 +108,9 @@ class General
         if (is_null($data)) {
             return 'No data found';
         }
-         if ($data->is_dlr_received != 0) {
-             return 'Already updated';
-         }
+        if ($data->is_dlr_received != 0) {
+            return 'Already updated';
+        }
         return $data;
     }
 
@@ -113,7 +118,7 @@ class General
     {
 
         $url = 'http://161.117.59.25:6666/receive_report/BD_Nodes?tMsgId=' . $data['tMsgId'] . '&status=' . $data['status'];
-         $url = 'http://smsproxy.test/api/bulk/dlr/client?tMsgId='.$data['tMsgId'].'&status='.$data['status'];
+        $url = 'http://smsproxy.test/api/bulk/dlr/client?tMsgId=' . $data['tMsgId'] . '&status=' . $data['status'];
         // $url = 'http://smsc.ekshop.world/api/bulk/dlr/client?tMsgId='.$data['tMsgId'].'&status='.$data['status'];
 
         $client = new Client([

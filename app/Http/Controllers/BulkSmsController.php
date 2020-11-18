@@ -165,11 +165,12 @@ class BulkSmsController extends Controller
         $opCode = substr($dataArr['mobile'], 0, 3);
 
         if ($opCode == '011') {
+
             $provider = 'Teletalk';
             $status = SmsProviders::teletalkSms($dataArr);
             $data = explode(",", $status);
 
-            if ($data[0] == 'SUCCESS') {
+            if (ltrim($data[0],'<reply>') == 'SUCCESS') {
                 $guid = ltrim($data[1], 'ID=');
                 $t_arr = [
                     'guid' => $guid,
@@ -180,6 +181,7 @@ class BulkSmsController extends Controller
                 return $this->storeSuccessSms($var);
 
             } else {
+
                 $guid = ltrim($data[1], 'ID=');
                 $error_code = 99;
 
