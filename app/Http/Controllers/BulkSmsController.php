@@ -97,7 +97,10 @@ class BulkSmsController extends Controller
     //    Used in routes
     public function dlrReport(Request $request)
     {
-        $DELIVERED_DATA = Carbon::parse($request->DELIVERED_DATA)->addMinutes(30);
+        $DELIVERED_DATA = null;
+        if (isset($request->DELIVERED_DATA) && !empty($request->DELIVERED_DATA)) {
+            $DELIVERED_DATA = Carbon::parse($request->DELIVERED_DATA)->addMinutes(30);
+        }
         $MSG_STATUS = $request->MSG_STATUS;
         $CLIENT_GUID = $request->CLIENT_GUID;
 
@@ -132,12 +135,26 @@ class BulkSmsController extends Controller
         return $request;
     }
 
-    public function dlrReportAll($number = null)
+    public function dlrReportAll(Request $request, $number = null)
     {
-        if (!is_null($number)) {
-            return Dlr::where('to', $number)->orderBy('id', 'desc')->get();
+        $limit = 10;
+        $passkey = '';
+        if (!isset($request->key)) {
+            return 'Authentication required';
         }
-        return Dlr::orderBy('id', 'desc')->get();
+        if (isset($request->limit)){
+            $limit = $request->limit;
+        }
+
+        if (!is_null($number)) {
+            return Dlr::where('dlrs.to', $number)
+                ->orderBy('id', 'desc')
+                ->limit($limit)
+                ->get();
+        }
+        return Dlr::orderBy('id', 'desc')
+            ->limit($limit)
+            ->get();
 
 
     }
@@ -147,7 +164,7 @@ class BulkSmsController extends Controller
 
         $opCode = substr($dataArr['mobile'], 0, 3);
 
-        if ($opCode == '015') {
+        if ($opCode == '011') {
             $provider = 'Teletalk';
             $status = SmsProviders::teletalkSms($dataArr);
             $data = explode(",", $status);
@@ -156,8 +173,7 @@ class BulkSmsController extends Controller
                 $guid = ltrim($data[1], 'ID=');
                 $t_arr = [
                     'guid' => $guid,
-                    'provider' => $provider,
-                    'telecom_operator' => $provider
+                    'provider' => $provider
                 ];
 
                 $var = array_merge($dataArr, $t_arr);
@@ -292,8 +308,7 @@ class BulkSmsController extends Controller
                     'status' => $deliveryStatus
                 ];
 
-                return General::sendDlrToBeelink($passData);
-
+                General::sendDlrToBeelink($passData);
             }
         }
     }

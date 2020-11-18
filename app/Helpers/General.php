@@ -62,6 +62,7 @@ class General
 
     public static function setVfCreateValues($var)
     {
+        $operator = '';
         $opCode = substr($var['mobile'], 0, 3);
         if ($opCode == '015') {
             $operator = 'Teletalk';
@@ -87,7 +88,6 @@ class General
         $data['msg_body'] = $var['smsText'];
         $data['msg_client'] = $var['client'];
         $data['msg_provider'] = $var['provider'];
-        $data['telecom_operator'] = null;
         $data['error_code'] = (isset($var['error_code']) ? $var['error_code'] : NULL);
         $data['tMsgId'] = (isset($var['tMsgId']) ? $var['tMsgId'] : NULL);
         $data['telecom_operator'] = $operator;
@@ -103,38 +103,38 @@ class General
         if (is_null($data)) {
             return 'No data found';
         }
-        // if ($data->is_dlr_received != 0) {
-        //     return 'Already updated';
-        // }
+         if ($data->is_dlr_received != 0) {
+             return 'Already updated';
+         }
         return $data;
     }
 
     public static function sendDlrToBeelink($data)
     {
 
-        $url = 'http://161.117.59.25:6666/receive_report/BD_Nodes';
-//         $url = 'http://smsproxy.test/api/bulk/dlr/client';
-        // $url = 'http://smsc.ekshop.world/api/bulk/dlr/client';
+        $url = 'http://161.117.59.25:6666/receive_report/BD_Nodes?tMsgId=' . $data['tMsgId'] . '&status=' . $data['status'];
+         $url = 'http://smsproxy.test/api/bulk/dlr/client?tMsgId='.$data['tMsgId'].'&status='.$data['status'];
+        // $url = 'http://smsc.ekshop.world/api/bulk/dlr/client?tMsgId='.$data['tMsgId'].'&status='.$data['status'];
 
+        $client = new Client([
+            'Content-Type' => 'text/html',
+            'Host' => 'ekshop.gov.bd',
+            'Accept-Charset' => 'utf-8',
+            'Date' => date(' Y-m-d H:i:s')
+        ]);
+        $promise1 = $client->getAsync($url)->then(
+            function ($response) {
+                return
+                    [
+                        'status_code' => $response->getStatusCode(),
+                        'body' => (string)$response->getBody()
+                    ];
 
-        $client = new Client();
-        $options = [
-            'form_params' => [
-                'tMsgId' => $data['tMsgId'],
-                'status' => $data['status']
-            ]
-        ];
-
-        try {
-            $response = $client->post($url, $options);
-        } catch (GuzzleException $e) {
-            return $e->getMessage();
+            }, function ($exception) {
+            return $exception->getMessage();
         }
-        return [
-            'status_code' => $response->getStatusCode(),
-            'body' => (string)$response->getBody()
-        ];
-
+        );
+        return $promise1->wait();
     }
 
     public static function getClient()

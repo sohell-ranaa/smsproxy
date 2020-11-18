@@ -21,4 +21,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/bulk', 'BulkSmsController@nodesSmsRefactored');
 Route::get('/bulk/dlr', 'BulkSmsController@dlrReport');
-Route::post('/bulk/dlr/client', 'BulkSmsController@dlrReportFromClient');
+Route::get('/bulk/dlr/client', 'BulkSmsController@dlrReportFromClient');
