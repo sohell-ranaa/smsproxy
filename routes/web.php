@@ -15,6 +15,18 @@ use Carbon\Carbon;
 |
 */
 
+Route::view('/login','auth.login');
+
+
+Route::get('/admin-dashboard','DashboardController@adminIndex')
+            ->name('admin-dashboard');
+
+
+
+
+
+//API's'
+
 Route::get('/ip',function(){
     echo $_SERVER['SERVER_ADDR'].'<br>';
     echo $_SERVER['REMOTE_ADDR'];
@@ -28,4 +40,4 @@ Route::get('/bulk/dlr/report/{number?}', 'BulkSmsController@dlrReportAll');
 Route::get('/bulk/client', 'BulkSmsController@dlrReportFromClient');
 Route::get('/ekshop', 'BulkSmsController@ekShopSms');
 Route::get('/beelink-report-email','MailController@sendBeelinkMail');
-Route::get('/test/teletalk','BulkSmsController@getTeletalkDlr');
+Route::get('/test/request-dlr','BulkSmsController@requestDlr');

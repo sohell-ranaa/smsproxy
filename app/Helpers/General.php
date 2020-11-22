@@ -177,4 +177,11 @@ class General
         }
         return null;
     }
+
+    public static function xmltoJson($response)
+    {
+        $xml = simplexml_load_string($response);
+        $json = json_encode($xml);
+        return json_decode($json, TRUE);
+    }
 }

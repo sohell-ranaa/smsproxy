@@ -142,7 +142,7 @@ class BulkSmsController extends Controller
         if (!isset($request->key)) {
             return 'Authentication required';
         }
-        if (isset($request->limit)){
+        if (isset($request->limit)) {
             $limit = $request->limit;
         }
 
@@ -164,13 +164,13 @@ class BulkSmsController extends Controller
 
         $opCode = substr($dataArr['mobile'], 0, 3);
 
-        if ($opCode == '011') {
+        if ($opCode == '011') {  //$opCode == '015')
 
             $provider = 'Teletalk';
             $status = SmsProviders::teletalkSms($dataArr);
             $data = explode(",", $status);
 
-            if (ltrim($data[0],'<reply>') == 'SUCCESS') {
+            if (ltrim($data[0], '<reply>') == 'SUCCESS') {
                 $guid = ltrim($data[1], 'ID=');
                 $t_arr = [
                     'guid' => $guid,
@@ -192,6 +192,35 @@ class BulkSmsController extends Controller
                 ];
                 $var = array_merge($dataArr, $t_arr);
                 return $this->storeUnsentSms($var);
+            }
+        } elseif ($opCode == '012' || $opCode == '010') {  //$opCode == '016' || $opCode == '018'
+
+            $provider = 'Robi/Airtel';
+            $status = (object)SmsProviders::robiAirtelSms($dataArr);
+
+            if ($status->StatusText == 'success') {
+                $guid = $status->MessageId;
+
+                $t_arr = [
+                    'guid' => $guid,
+                    'provider' => $provider
+                ];
+
+                $var = array_merge($dataArr, $t_arr);
+                return $this->storeSuccessSms($var);
+
+            } else {
+                $guid = $status->MessageId;
+                $error_code = $status->ErrorCode;
+
+                $t_arr = [
+                    'guid' => $guid,
+                    'provider' => $provider,
+                    'error_code' => $error_code
+                ];
+                $var = array_merge($dataArr, $t_arr);
+                return $this->storeUnsentSms($var);
+
             }
         } else {
             $status = SmsProviders::vfSms($dataArr);
@@ -262,55 +291,106 @@ class BulkSmsController extends Controller
         return SmsProviders::teletalkSms($request);
     }
 
-    public function getTeletalkDlr()
+    public function requestDlr()
     {
         $checkforDlr = SmsDetails::where('msg_provider', 'Teletalk')
+            ->orWhere('msg_provider', 'Robi/Airtel')
             ->where('is_dlr_received', 0);
 
         if ($checkforDlr->count() > 0) {
 
-            $msg_guid = $checkforDlr->select('id', 'msg_guid', 'tMsgId')->get();
+            $msg_guid = $checkforDlr->select('id', 'msg_guid', 'tMsgId', 'msg_provider')->get();
+
 
             foreach ($msg_guid as $data) {
-                $url = 'https://bulksms.teletalk.com.bd/link_sms_send.php?op=STATUS&user=Aspire&pass=ekShop@2021&sms_id=' . $data->msg_guid;
-                $client = new Client([
-                    'Content-Type' => 'application/json',
-                    'Host' => 'ekshop.gov.bd',
-                    'Accept-Charset' => 'utf-8',
-                    'Last-Modified' => date(' Y-m-d H:i:s')
-                ]);
-                $promise1 = $client->getAsync($url)->then(
-                    function ($response) {
-                        return $response->getBody();
-                    }, function ($exception) {
-                    return $exception->getMessage();
-                }
-                );
 
-                $response = $promise1->wait();
-
-                if (strpos($response, 'SUCCESSFULLY SENT TO')) {
-                    $deliveryStatus = 'Delivered';
-                } else {
-                    $deliveryStatus = 'Failed';
-                }
-                Dlr::where('sms_id', $data->id)
-                    ->update([
-                        'msg_status' => $deliveryStatus
+                if ($data['msg_provider'] == 'Teletalk') {
+                    $url = 'https://bulksms.teletalk.com.bd/link_sms_send.php?op=STATUS&user=Aspire&pass=ekShop@2021&sms_id=' . $data->msg_guid;
+                    $client = new Client([
+                        'Content-Type' => 'application/json',
+                        'Host' => 'ekshop.gov.bd',
+                        'Accept-Charset' => 'utf-8',
+                        'Last-Modified' => date(' Y-m-d H:i:s')
                     ]);
+                    $promise1 = $client->getAsync($url)->then(
+                        function ($response) {
+                            return $response->getBody();
+                        }, function ($exception) {
+                        return $exception->getMessage();
+                    }
+                    );
 
-                SmsDetails::where('id', $data->id)
-                    ->update([
-                        'is_dlr_received' => '1',
-                        'msg_guid' => $data->msg_guid
+                    $response = $promise1->wait();
+
+                    if (strpos($response, 'SUCCESSFULLY SENT TO')) {
+                        $deliveryStatus = 'Delivered';
+                    } else {
+                        $deliveryStatus = 'Failed';
+                    }
+                    Dlr::where('sms_id', $data->id)
+                        ->update([
+                            'msg_status' => $deliveryStatus
+                        ]);
+
+                    SmsDetails::where('id', $data->id)
+                        ->update([
+                            'is_dlr_received' => '1',
+                            'msg_guid' => $data->msg_guid
+                        ]);
+
+                    $passData = [
+                        'tMsgId' => $data['tMsgId'],
+                        'status' => $deliveryStatus
+                    ];
+
+                    General::sendDlrToBeelink($passData);
+
+                } elseif ($data['msg_provider'] == 'Robi/Airtel') {
+
+                    $url = 'https://api.mobireach.com.bd/GetMessageStatus?Username=aspire&Password=Dhaka@1234&MessageId=' . $data->msg_guid;
+
+                    $client = new Client([
+                        'Content-Type' => 'application/json',
+                        'Host' => 'ekshop.gov.bd',
+                        'Accept-Charset' => 'utf-8',
+                        'Date' => date(' Y-m-d H:i:s')
                     ]);
+                    $promise1 = $client->getAsync($url)->then(
+                        function ($response) {
+                            return $response->getBody();
+                        }, function ($exception) {
+                        return $exception->getMessage();
+                    }
+                    );
 
-                $passData = [
-                    'tMsgId' => $data['tMsgId'],
-                    'status' => $deliveryStatus
-                ];
+                    $response = $promise1->wait();
 
-                General::sendDlrToBeelink($passData);
+                    $d = General::xmltoJson($response);
+
+                    $var = $d['ServiceClass'];
+
+                    if ($var['ErrorCode'] == '0') {
+                        $deliveryStatus = 'Delivered';
+                    } else {
+                        $deliveryStatus = 'Failed';
+                    }
+                    Dlr::where('sms_id', $data->id)
+                        ->update([
+                            'msg_status' => $deliveryStatus
+                        ]);
+
+                    SmsDetails::where('id', $data->id)
+                        ->update([
+                            'is_dlr_received' => '1',
+                            'msg_guid' => $data->msg_guid
+                        ]);
+
+                    $passData = [
+                        'tMsgId' => $data['tMsgId'],
+                        'status' => $deliveryStatus
+                    ];
+                    General::sendDlrToBeelink($passData);
+                }
             }
         }
     }
